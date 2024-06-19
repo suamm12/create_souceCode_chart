@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escape List Items</title>
+<style>
+
+@font-face {
+        font-family: consolas;
+        src: url(./consolas.ttf);
+    }
+
+
+    li {
+        font-family: consolas;
+        font-size: 15px;
+    }
+    
+    /* スタイルは必要に応じて追加 */
+    textarea {
+        resize: none;
+        width:300px; height: 100px;
+    }
+
+
+    #preview {
+        display: inline-block;
+    }
+</style>
+</head>
+<body>
+    <textarea id="inputTextarea"></textarea>
+    <button onclick="formatLists()">Format</button>
+    <textarea id="outputTextarea" readonly></textarea>
+
+
+    <h3>Preview</h3>
+
+    <div id="preview"></div>
+
+
+
+    <script>
+        function escapeHtml(text) {
+            let element = document.createElement('div');
+            element.innerText = text;
+            return element.innerHTML;
+        }
+
+
+
+        function formatLists() {
+            // 入力されたテキストを取得
+            let inputText = document.getElementById('inputTextarea').value;
+            // 改行で分割して配列にする
+            let lines = inputText.split('\n');
+            // 出力用のテキストを初期化
+            let outputText = '<code>\n<ol style=" list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#1E1E1E;color:#ffffff; font-size:16px; width: 605px; height: 450px; white-space: nowrap;  overflow: auto;">\n';
+
+            // 各行ごとに処理して <li> で囲んで出力用テキストに追加する
+            lines.forEach(function(line) {
+                // 空白も含めて処理するため、trim() を使用しない
+                if (line !== '') { // 空行を無視する
+
+                    
+                    let escapedLine = escapeHtml(line);
+
+                    escapedLine = escapedLine.replace(/ /g, '&nbsp;');
+
+                    outputText += '<li>' + escapedLine + '</li>\n';
+                }
+            });
+
+            outputText += '</ol>\n</code>';
+            
+            // 入力に応じて ul または ol タグで囲んで出力用テキストに追加する
+            if (document.getElementById('inputTextarea').value.trim() !== '') {
+                if (document.getElementById('useOl').checked) {
+                    outputText = '<ol>\n' + outputText + '</ol>';
+                } else {
+                    // outputText = '<ul>\n' + outputText + '</ul>';
+                }
+            }
+
+            const preview = document.getElementById("preview")
+
+            // 出力用のテキストエリアに結果を表示する
+            document.getElementById('outputTextarea').value = outputText;
+            preview.innerHTML = outputText
+        }
+    </script>
+    
+    <div>
+        <input type="checkbox" id="useOl">
+        <label for="useOl">Use &lt;ol&gt; tag</label>
+    </div>
+</body>
+</html>
