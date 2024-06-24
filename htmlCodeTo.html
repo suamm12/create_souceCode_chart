@@ -1,99 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escape List Items</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ソースコードHTML生成-vscode風カラー機能付き</title>
 
-@font-face {
-        font-family: consolas;
-        src: url(./consolas.ttf);
-    }
+    <link rel="stylesheet" href="styles.css">
 
-
-    li {
-        font-family: consolas;
-        font-size: 15px;
-    }
-    
-    /* スタイルは必要に応じて追加 */
-    textarea {
-        resize: none;
-        width:300px; height: 100px;
-    }
-
-
-    #preview {
-        display: inline-block;
-    }
-</style>
 </head>
+
 <body>
-    <textarea id="inputTextarea"></textarea>
-    <button onclick="formatLists()">Format</button>
-    <textarea id="outputTextarea" readonly></textarea>
+
+    <header>
+        <div id="headBkg">
+            <h1 id="siteName" style="color: blue;">souceHtml</h1>
+            <ul>
+                <li><a href="google.com">ホーム</a></li>
+                <li><a href="google.com">設定を追加する</a></li>
+                <li><a href="google.com">更新情報</a></li>
+                <li><a href="google.com">使い方・使用例</a></li>
+            </ul>
+        </div>
+    </header>
 
 
-    <h3>Preview</h3>
+    <section class="wrapper">
 
-    <div id="preview"></div>
+        <ul style="justify-content: space-around; padding-left: 0; align-items: center;">
+            <li>
+                <textarea id="inputTextarea" placeholder="ここにソースコードを入力してください"></textarea>
+
+            </li>
+            <li style="padding-left: 0; margin: 0;">
+                <button onclick="formatLists()" >Format</button>
+                <button onclick="formatLists()" >setting</button>
+
+            </li>
+            <li>
+                <textarea id="outputTextarea" placeholder="ここに結果が出力されます"></textarea>
+
+            </li>
+        </ul>
 
 
+        <!-- 幅 -->
 
-    <script>
-        function escapeHtml(text) {
-            let element = document.createElement('div');
-            element.innerText = text;
-            return element.innerHTML;
-        }
-
-
-
-        function formatLists() {
-            // 入力されたテキストを取得
-            let inputText = document.getElementById('inputTextarea').value;
-            // 改行で分割して配列にする
-            let lines = inputText.split('\n');
-            // 出力用のテキストを初期化
-            let outputText = '<code>\n<ol style=" list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#1E1E1E;color:#ffffff; font-size:16px; width: 605px; height: 450px; white-space: nowrap;  overflow: auto;">\n';
-
-            // 各行ごとに処理して <li> で囲んで出力用テキストに追加する
-            lines.forEach(function(line) {
-                // 空白も含めて処理するため、trim() を使用しない
-                if (line !== '') { // 空行を無視する
-
-                    
-                    let escapedLine = escapeHtml(line);
-
-                    escapedLine = escapedLine.replace(/ /g, '&nbsp;');
-
-                    outputText += '<li>' + escapedLine + '</li>\n';
-                }
-            });
-
-            outputText += '</ol>\n</code>';
-            
-            // 入力に応じて ul または ol タグで囲んで出力用テキストに追加する
-            if (document.getElementById('inputTextarea').value.trim() !== '') {
-                if (document.getElementById('useOl').checked) {
-                    outputText = '<ol>\n' + outputText + '</ol>';
-                } else {
-                    // outputText = '<ul>\n' + outputText + '</ul>';
-                }
-            }
-
-            const preview = document.getElementById("preview")
-
-            // 出力用のテキストエリアに結果を表示する
-            document.getElementById('outputTextarea').value = outputText;
-            preview.innerHTML = outputText
-        }
-    </script>
+        <div class="settginBox" style="display: flex; transform: translate(5%,0 );">
+<!-- 
+            <div>
+                <p>幅,width</p>
+                <input type="range" name="" id="" step="50" min="300px" max="800">
+            </div>
     
+            <div>
+                <p>高さ,height</p>
+                <select name="position" id="position">
+                    <option value="aaa">vsCode-style</option>
+                    <option value="bbb">qiita-style</option>
+                    <option value="ccc">zenn-style</option>
+                </select>
+            </div>
+    
+            <div>
+                <p>位置</p>
+                <select name="position" id="position">
+                    <option value="aaa">Left</option>
+                    <option value="bbb">Middle-style</option>
+                    <option value="ccc"></option>
+                </select>
+            </div>
     <div>
+        <p>Sorceスタイル</p>
+        <select name="position" id="position">
+            <option value="aaa">vsCode-style</option>
+            <option value="bbb">qiita-style</option>
+            <option value="ccc">zenn-style</option>
+        </select>
+    </div> -->
+    
+
+        </div>
+        <h3 style="text-align: center;">Preview</h3>
+        
+        <div style="display: flex; justify-content: center;">
+           <div id="preview"></div>
+        </div>
+    </section>
+
+
+
+    <div>
+        <!-- 後で、script内の関連するコードを消す -->
         <input type="checkbox" id="useOl">
-        <label for="useOl">Use &lt;ol&gt; tag</label>
+        <!-- <label for="useOl">Use &lt;ol&gt; tag</label> -->
     </div>
+    <script src="script.js"></script>
 </body>
+
 </html>
