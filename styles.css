@@ -1,0 +1,67 @@
+@font-face {
+    font-family: consolas;
+    src: url(./consolas.ttf);
+}
+
+
+
+li {
+    font-family: consolas;
+    font-size: 15px;
+}
+
+/* スタイルは必要に応じて追加 */
+textarea {
+    resize: none;
+    width: 300px;
+    height: 100px;
+}
+
+
+#preview {
+    display: inline-block;
+}
+
+#siteName {
+    margin-left: 15px;
+}
+
+header {
+    max-width: 990px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+header li a:hover {
+    color: red;
+}
+
+header li a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header div li {
+    list-style: none;
+    margin-left: 13px;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul {
+    display: flex;
+}
+
+#headBkg {
+    display: flex;
+    align-items: center;
+    background-color: aqua;
+    padding: 3px;
+}
+
+.wrapper {
+    max-width: 990px;
+    margin: 0 auto;
+}
